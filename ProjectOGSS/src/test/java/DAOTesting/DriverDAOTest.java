@@ -27,6 +27,6 @@ public class DriverDAOTest {
 	@Transactional
 	@Rollback(true)
 	public void test() {
-
+		System.out.println("test");
 	}
 }
