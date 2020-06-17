@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.revature.config.AppConfig;
 import com.revature.dao.DriverDAO;
+import com.revature.dao.ProductsDAO;
 import com.revature.dao.UserAccountDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,10 +25,14 @@ public class UserAccountDAOTest {
 	@Autowired
 	UserAccountDAO userAccDao;
 
+	@Autowired
+	ProductsDAO productsDao;
+
 	@Test
 	@Transactional
 	@Rollback(true)
 	public void test() {
 
+		System.out.println("TEST PRODUCTS = " + productsDao.getProducts());
 	}
 }
