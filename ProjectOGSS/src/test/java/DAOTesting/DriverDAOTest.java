@@ -28,7 +28,7 @@ public class DriverDAOTest {
 	@Rollback(true)
 	public void test() {
 
-		System.out.println("tt");
+		System.out.println("t");
 
 	}
 }
