@@ -33,6 +33,6 @@ public class UserAccountDAOTest {
 	@Rollback(true)
 	public void test() {
 
-		System.out.println("TEST PRODUCTS = " + productsDao.getProducts());
+		System.out.println("TEST PRODUCTSs  " + productsDao.getProducts());
 	}
 }
