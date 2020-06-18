@@ -111,7 +111,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			return null;
 		}
 
-		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.Driver.id = :driverID";
+		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.driver.id = :driverID";
 		Query query = session.createQuery(getInvoiceHQL);
 		query.setParameter("driverID", userAccount.getId());
 		List<Invoice> listresults = (List<Invoice>) query.list();

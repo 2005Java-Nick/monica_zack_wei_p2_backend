@@ -85,6 +85,7 @@ public class DriverDAOImpl implements DriverDAO {
 		query.setParameter("accountID", userAccount.getId());
 		Driver listresults = (Driver) query.uniqueResult();
 		listresults.setOnShift(!listresults.getOnShift());
+		// session.update(listresults);
 		tx.commit();
 		session.close();
 		return listresults.getOnShift();

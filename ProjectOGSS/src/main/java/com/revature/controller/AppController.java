@@ -135,10 +135,10 @@ public class AppController {
 	}
 
 	@RequestMapping(path = "/driver/ShiftToggle", method = RequestMethod.PUT)
-	public Driver driverShiftToggle(@RequestBody Token token) {
+	public Boolean driverShiftToggle(@RequestBody Token token) {
 		token.setToken((token.getToken().replace(' ', '+')));
 		System.out.println("Driver ShiftToggle Ran");
-		return driverService.getDriverShiftStatus(token);
+		return driverService.onShiftToggle(token);
 	}
 
 	@Autowired

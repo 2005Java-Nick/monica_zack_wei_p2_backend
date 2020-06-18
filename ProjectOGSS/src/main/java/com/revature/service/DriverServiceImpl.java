@@ -35,6 +35,7 @@ public class DriverServiceImpl implements DriverService {
 			res.getCustomer().setUsername("HIDDEN");
 			res.getCustomer().setPassword("HIDDEN");
 		}
+		System.out.println("SIZE" + results.size());
 		return results;
 	}
 
