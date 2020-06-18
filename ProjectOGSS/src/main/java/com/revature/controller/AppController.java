@@ -106,7 +106,7 @@ public class AppController {
 	}
 
 	@RequestMapping(path = "/invoices", method = RequestMethod.POST)
-	public Invoice setInvoice(@RequestBody Invoice data) {
+	public Boolean setInvoice(@RequestBody Invoice data) {
 		return ordersService.checkout(data);
 	}
 

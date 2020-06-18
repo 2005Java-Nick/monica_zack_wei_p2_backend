@@ -20,7 +20,7 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public Invoice checkout(Invoice invoice) {
+	public Boolean checkout(Invoice invoice) {
 		return ordersDAO.checkout(invoice);
 	}
 

@@ -53,6 +53,9 @@ public class DriverDAOImpl implements DriverDAO {
 
 		session.flush();
 		session.close();
+		if (listresults.size() == 0 || listresults == null) {
+			return null;
+		}
 		return listresults.get(minIndex);
 	}
 

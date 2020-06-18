@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -37,40 +38,47 @@ public class OrdersDAOImpl implements OrdersDAO {
 	}
 
 	@Override
-	public Invoice checkout(Invoice invoice) {
-		Session session = sf.openSession();
-		Transaction tx = session.beginTransaction();
+	public Boolean checkout(Invoice invoice) {
+		try {
 
-		UserAccount userAccount = userAccountDAO.getUserAccount(invoice.getToken());
-		if (userAccount == null) {
-			return null;
+			Session session = sf.openSession();
+			Transaction tx = session.beginTransaction();
+
+			UserAccount userAccount = userAccountDAO.getUserAccount(new Token(invoice.getCustomer().getSessionToken()));
+			if (userAccount == null) {
+				return null;
+			}
+			// session.persist(userAccount);
+			invoice.setCustomer(userAccount);
+			UserAccount tempUser = driverDAO.getAvailableDriver();
+			if (tempUser != null) {
+				invoice.setDriver(tempUser);
+			}
+
+			List<ItemList> iList = new ArrayList<ItemList>();
+			for (ItemList p : invoice.getItemList()) {
+				String getProductHQL = "SELECT p FROM Product p WHERE p.id = :productID";
+				Query query = session.createQuery(getProductHQL);
+				query.setParameter("productID", p.getProduct().getId());
+				Product productResult = (Product) query.uniqueResult();
+				productResult.setInventoryQuantity(productResult.getInventoryQuantity() - p.getQuantity());
+
+				ItemList item = new ItemList();
+				item.setOrder(invoice);
+				item.setProduct(productResult);
+				item.setQuantity(p.getQuantity());
+				iList.add(item);
+			}
+			invoice.setItemList(iList);
+			session.save(invoice);
+			session.flush();
+			tx.commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		session.persist(userAccount);
-		invoice.setCustomer(userAccount);
-		UserAccount tempUser = driverDAO.getAvailableDriver();
-		if (tempUser != null) {
-			invoice.setDriver(tempUser);
-		}
-
-		session.save(invoice);
-		for (ItemList p : invoice.getItemList()) {
-			String getProductHQL = "SELECT p FROM Product p WHERE p.id = :productID";
-			Query query = session.createQuery(getProductHQL);
-			query.setParameter("productID", p.getProduct().getId());
-			Product productResult = (Product) query.uniqueResult();
-			productResult.setInventoryQuantity(productResult.getInventoryQuantity() - p.getQuantity());
-			session.persist(productResult);
-
-			ItemList item = new ItemList();
-			item.setOrder(invoice);
-			item.setProduct(productResult);
-			item.setQuantity(p.getQuantity());
-			session.save(item);
-		}
-
-		tx.commit();
-		session.close();
-		return invoice;
+		return true;
 	}
 
 	@Override

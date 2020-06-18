@@ -7,7 +7,7 @@ import com.revature.struct.Token;
 
 public interface OrdersService {
 
-	Invoice checkout(Invoice invoice);
+	Boolean checkout(Invoice invoice);
 
 	List<Invoice> getInvoices(Token token);
 
