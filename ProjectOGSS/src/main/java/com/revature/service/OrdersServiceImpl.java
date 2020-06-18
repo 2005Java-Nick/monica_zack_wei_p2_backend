@@ -28,8 +28,10 @@ public class OrdersServiceImpl implements OrdersService {
 	public List<Invoice> getInvoices(Token token) {
 		List<Invoice> results = ordersDAO.getInvoices(token);
 		for (Invoice res : results) {
-			res.getDriver().setUsername("HIDDEN");
-			res.getDriver().setPassword("HIDDEN");
+			if (res.getDriver() != null) {
+				res.getDriver().setUsername("HIDDEN");
+				res.getDriver().setPassword("HIDDEN");
+			}
 			res.getCustomer().setUsername("HIDDEN");
 			res.getCustomer().setPassword("HIDDEN");
 		}

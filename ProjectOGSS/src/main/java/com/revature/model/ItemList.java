@@ -9,13 +9,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "item_list")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ItemList {
 
 	@EmbeddedId
 	private ItemListID id;
 
+	@JsonBackReference
 	@ManyToOne
 	@MapsId("orderID")
 	private Invoice order;

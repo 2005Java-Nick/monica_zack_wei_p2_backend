@@ -91,7 +91,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			return null;
 		}
 
-		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.Customer.id = :customerID";
+		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.customer.id = :customerID";
 		Query query = session.createQuery(getInvoiceHQL);
 		query.setParameter("customerID", userAccount.getId());
 		List<Invoice> listresults = (List<Invoice>) query.list();
