@@ -15,14 +15,14 @@ CREATE TABLE user_account
 	username TEXT NOT NULL,
 	user_password TEXT NOT NULL,
 	session_token TEXT,
-	phone_number TEXT NOT NULL,
-	email TEXT NOT NULL,
-	address TEXT NOT NULL,
-	state TEXT NOT NULL,
-	city TEXT NOT NULL,
-	zip TEXT NOT NULL,
-	firstname TEXT NOT NULL,
-	lastname TEXT NOT NULL
+	phone_number TEXT,
+	email TEXT,
+	address TEXT,
+	state TEXT,
+	city TEXT,
+	zip TEXT,
+	firstname TEXT,
+	lastname TEXT
 );
 
 CREATE TABLE user_type
@@ -150,7 +150,7 @@ REFERENCES discount_code(id) ON DELETE CASCADE;
 	
 	
 insert into user_account (username, user_password, phone_number, email, address, state, city, zip, firstname, lastname)
-values ('Wei', 'Pass', '999-999-9999', 'email@email.com', '123 Address Ave', 'NY', 'NYC', '12345', 'Wei', 'Wu' );	
+values ('wei', 'password123', '999-999-9999', 'email@email.com', '123 Address Ave', 'NY', 'NYC', '12345', 'Wei', 'Wu' );	
 
 insert into account_type (id, acc_type)
 values (1, 'customer');	
@@ -162,9 +162,4 @@ insert into account_type (id, acc_type)
 values (3, 'admin');	
 
 insert into user_type (user_account_id, account_type_id)
-values (1, 1);	
-	
-insert into products (product_name , description , price , inventory_quantity )
-values ('Apply', 'a apply...', 5, 2);
-insert into products (product_name , description , price , inventory_quantity )
-values ('Cake', 'a big cake...', 76, 7);
+values (1, 3);
