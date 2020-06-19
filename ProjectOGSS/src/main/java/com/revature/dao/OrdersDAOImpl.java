@@ -126,15 +126,15 @@ public class OrdersDAOImpl implements OrdersDAO {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 
-		UserAccount userAccount = userAccountDAO.getUserAccount(invoice.getToken());
+		UserAccount userAccount = userAccountDAO.getUserAccount(new Token(invoice.getCustomer().getSessionToken()));
 		if (userAccount == null) {
 			return null;
-		} else if (!userAccount.getAccountType().getType().equals("driver")
-				|| !userAccount.getAccountType().getType().equals("admin")) {
+		} else if (userAccount.getAccountType().getType().equals("customer")
+				|| userAccount.getAccountType().getType().equals("")) {
 			return null;
 		}
 
-		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.id = invoiceID";
+		String getInvoiceHQL = "SELECT invoice FROM Invoice invoice WHERE invoice.id = :invoiceID";
 		Query query = session.createQuery(getInvoiceHQL);
 		query.setParameter("invoiceID", invoice.getId());
 		Invoice listresult = (Invoice) query.uniqueResult();

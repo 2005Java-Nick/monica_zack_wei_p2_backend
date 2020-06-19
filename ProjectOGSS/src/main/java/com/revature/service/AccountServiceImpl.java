@@ -42,8 +42,8 @@ public class AccountServiceImpl implements AccountService {
 		if (account != null) {
 			account.setSessionToken(Encryption.encryptString(account.getUsername() + account.getPassword()));
 			userAccountDAO.setUserAccountSessionToken(account);
+			account.setPassword("HIDDEN");
 		}
-		account.setPassword("HIDDEN");
 		return account;
 	}
 
@@ -54,8 +54,8 @@ public class AccountServiceImpl implements AccountService {
 		if (account != null) {
 			account.setSessionToken(Encryption.encryptString(account.getUsername() + account.getPassword()));
 			userAccountDAO.setUserAccountSessionToken(account);
+			account.setPassword("HIDDEN");
 		}
-		account.setPassword("HIDDEN");
 		return account;
 	}
 

@@ -63,7 +63,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
 
 	@Override
 	public UserAccount createUserAccount(UserAccount userAccount) {
-		if (accountExist(userAccount)) {
+		if (accountExist(userAccount) || userAccount.getAccountType().equals("admin")) {
 			return null;
 		}
 		Session session = sf.openSession();
